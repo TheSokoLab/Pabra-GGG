@@ -1,0 +1,134 @@
+# reac_no type rate_no par1 par2 prod1 prod2 comment/name
+# 
+# Strong repression (off-rate = 7) between:
+#
+#   Hb-Kni / Kni-Hb
+#   Kr-Gt  / Gt-Kr
+#
+# Strong repression (off-rate = 8) between:
+# 
+#   Hb-Kr  / Kr-Hb
+#   Hb-Gt  / Gt-Hb
+#   Kr-Kni / Kni-Kr
+#   Kni-Gt / Gt-Kni
+#
+# Total no. of reactions = 117
+#
+#
+0 p 1 2 -1 0 1      Hb_production
+1 d 2 0 -1 -1 -1    Hb_degradation
+2 d 3 1 -1 -1 -1    Hb2_degradation
+3 D 4 0 0 1 -1      Hb_dimerization
+4 u 5 1 -1 0 0      Hb2_dedimerization
+5 b 6 2 11 3 -1     HB_binding_Kr2
+6 u 8 3 -1 2 11     HB_unbinding_Kr2
+7 b 6 2 21 4 -1     HB_binding_Kni2
+8 u 7 4 -1 2 21     HB_unbinding_Kni2
+9 b 6 2 31 5 -1     HB_binding_Gt2
+10 u 8 5 -1 2 31    HB_unbinding_Gt2
+11 b 6 3 21 6 -1    HB_Kr2_binding_Kni2
+12 u 7 6 -1 3 21    HB_Kr2_unbinding_Kni2
+13 b 6 3 31 7 -1    HB_Kr2_binding_Gt2
+14 u 8 7 -1 3 31    HB_Kr2_unbinding_Gt2
+15 b 6 4 11 6 -1    HB_Kni2_binding_Kr2
+16 u 8 6 -1 4 11    HB_Kni2_unbinding_Kr2
+17 b 6 4 31 8 -1    HB_Kni2_binding_Gt2
+18 u 8 8 -1 4 31    HB_Kni2_unbinding_Gt2
+19 b 6 5 11 7 -1    HB_Gt2_binding_Kr2
+20 u 8 7 -1 5 11    HB_Gt2_unbinding_Kr2
+21 b 6 5 21 8 -1    HB_Gt2_binding_Kni2
+22 u 7 8 -1 5 21    HB_Gt2_unbinding_Kni2
+23 b 6 6 31 9 -1    HB_Kr2_Kni2_binding_Gt2
+24 u 8 9 -1 6 31    HB_Kr2_Kni2_unbinding_Gt2
+25 b 6 7 21 9 -1    HB_Kr2_Gt2_binding_Kni2
+26 u 7 9 -1 7 21    HB_Kr2_Gt2_unbinding_Kni2
+27 b 6 8 11 9 -1    HB_Kni2_Gt2_binding_Kr2
+28 u 8 9 -1 8 11    HB_Kni2_Gt2_unbinding_Kr2
+29 p 1 12 -1 10 1   Kr_production
+30 d 2 10 -1 -1 -1  Kr_degradation
+31 d 3 11 -1 -1 -1  Kr2_degradation
+32 D 4 10 10 11 -1  Kr_dimerization
+33 u 5 11 -1 10 10  Kr2_dedimerization
+34 b 6 12 1 13 -1   KR_binding_Hb2
+35 u 8 13 -1 12 1   KR_unbinding_Hb2
+36 b 6 12 21 14 -1  KR_binding_Kni2
+37 u 8 14 -1 12 21  KR_unbinding_Kni2
+38 b 6 12 31 15 -1  KR_binding_Gt2
+39 u 7 15 -1 12 31  KR_unbinding_Gt2
+40 b 6 13 21 16 -1  KR_Hb2_binding_Kni2
+41 u 8 16 -1 13 21  KR_Hb2_unbinding_Kni2
+42 b 6 13 31 17 -1  KR_Hb2_binding_Gt2
+43 u 7 17 -1 13 31  KR_Hb2_unbinding_Gt2
+44 b 6 14 1 16 -1   KR_Kni2_binding_Hb2
+45 u 8 16 -1 14 1   KR_Kni2_unbinding_Hb2
+46 b 6 14 31 18 -1  KR_Kni2_binding_Gt2
+47 u 7 18 -1 14 31  KR_Kni2_unbinding_Gt2
+48 b 6 15 1 17 -1   KR_Gt2_binding_Hb2
+49 u 8 17 -1 15 1   KR_Gt2_unbinding_Hb2
+50 b 6 15 21 18 -1  KR_Gt2_binding_Kni2
+51 u 8 18 -1 15 21  KR_Gt2_unbinding_Kni2
+52 b 6 16 31 19 -1  KR_Hb2_Kni2_binding_Gt2
+53 u 7 19 -1 16 31  KR_Hb2_Kni2_unbinding_Gt2
+54 b 6 17 21 19 -1  KR_Hb2_Gt2_binding_Kni2
+55 u 8 19 -1 17 21  KR_Hb2_Gt2_unbinding_Kni2
+56 b 6 18 1 19 -1   KR_Kni2_Gt2_binding_Hb2
+57 u 8 19 -1 18 1   KR_Kni2_Gt2_unbinding_Hb2
+58 p 1 22 -1 20 1   Kni_production
+59 d 2 20 -1 -1 -1  Kni_degradation
+60 d 3 21 -1 -1 -1  Kni2_degradation
+61 D 4 20 20 21 -1  Kni_dimerization
+62 u 5 21 -1 20 20  Kni2_dedimerization
+63 b 6 22 1 23 -1   KNI_binding_Hb2
+64 u 7 23 -1 22 1   KNI_unbinding_Hb2
+65 b 6 22 11 24 -1  KNI_binding_Kr2
+66 u 8 24 -1 22 11  KNI_unbinding_Kr2
+67 b 6 22 31 25 -1  KNI_binding_Gt2
+68 u 8 25 -1 22 31  KNI_unbinding_Gt2
+69 b 6 23 11 26 -1  KNI_Hb2_binding_Kr2
+70 u 8 26 -1 23 11  KNI_Hb2_unbinding_Kr2
+71 b 6 23 31 27 -1  KNI_Hb2_binding_Gt2
+72 u 8 27 -1 23 31  KNI_Hb2_unbinding_Gt2
+73 b 6 24 1 26 -1   KNI_Kr2_binding_Hb2
+74 u 7 26 -1 24 1   KNI_Kr2_unbinding_Hb2
+75 b 6 24 31 28 -1  KNI_Kr2_binding_Gt2
+76 u 8 28 -1 24 31  KNI_Kr2_unbinding_Gt2
+77 b 6 25 1 27 -1   KNI_Gt2_binding_Hb2
+78 u 7 27 -1 25 1   KNI_Gt2_unbinding_Hb2
+79 b 6 25 11 28 -1  KNI_Gt2_binding_Kr2
+80 u 8 28 -1 25 11  KNI_Gt2_unbinding_Kr2
+81 b 6 26 31 29 -1  KNI_Hb2_Kr2_binding_Gt2
+82 u 8 29 -1 26 31  KNI_Hb2_Kr2_unbinding_Gt2
+83 b 6 27 11 29 -1  KNI_Hb2_Gt2_binding_Kr2
+84 u 8 29 -1 27 11  KNI_Hb2_Gt2_unbinding_Kr2
+85 b 6 28 1 29 -1   KNI_Kr2_Gt2_binding_Hb2
+86 u 7 29 -1 28 1   KNI_Kr2_Gt2_unbinding_Hb2
+87 p 1 32 -1 30 1   Gt_production
+88 d 2 30 -1 -1 -1  Gt_degradation
+89 d 3 31 -1 -1 -1  Gt2_degradation
+90 D 4 30 30 31 -1  Gt_dimerization
+91 u 5 31 -1 30 30  Gt2_dedimerization
+92 b 6 32 1 33 -1   GT_binding_Hb2
+93 u 8 33 -1 32 1   GT_unbinding_Hb2
+94 b 6 32 11 34 -1  GT_binding_Kr2
+95 u 7 34 -1 32 11  GT_unbinding_Kr2
+96 b 6 32 21 35 -1  GT_binding_Kni2
+97 u 8 35 -1 32 21  GT_unbinding_Kni2
+98 b 6 33 11 36 -1  GT_Hb2_binding_Kr2
+99 u 7 36 -1 33 11  GT_Hb2_unbinding_Kr2
+100 b 6 33 21 37 -1 GT_Hb2_binding_Kni2
+101 u 8 37 -1 33 21 GT_Hb2_unbinding_Kni2
+102 b 6 34 1 36 -1  GT_Kr2_binding_Hb2
+103 u 8 36 -1 34 1  GT_Kr2_unbinding_Hb2
+104 b 6 34 21 38 -1 GT_Kr2_binding_Kni2
+105 u 8 38 -1 34 21 GT_Kr2_unbinding_Kni2
+106 b 6 35 1 37 -1  GT_Kni2_binding_Hb2
+107 u 8 37 -1 35 1  GT_Kni2_unbinding_Hb2
+108 b 6 35 11 38 -1 GT_Kni2_binding_Kr2
+109 u 7 38 -1 35 11 GT_Kni2_unbinding_Kr2
+110 b 6 36 21 39 -1 GT_Hb2_Kr2_binding_Kni2
+111 u 8 39 -1 36 21 GT_Hb2_Kr2_unbinding_Kni2
+112 b 6 37 11 39 -1 GT_Hb2_Kni2_binding_Kr2
+113 u 7 39 -1 37 11 GT_Hb2_Kni2_unbinding_Kr2
+114 b 6 38 1 39 -1  GT_Kr2_Kni2_binding_Hb2
+115 u 8 39 -1 38 1  GT_Kr2_Kni2_unbinding_Hb2
+116 p 1 40 -1 0 1   Hb_prod_from_pinning_promotor 
