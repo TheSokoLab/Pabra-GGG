@@ -17,7 +17,7 @@ parlist="10.5.10.10 10.5.10.11 10.5.10.12 10.5.10.13 10.5.10.14 10.5.10.15 10.5.
 parlist="10.5.10.13"
 
 ##### Time parameters for pabra
-ntraj=10 			# no. of independent starts at the root of the branching tree
+ntraj=100 			# no. of independent starts at the root of the branching tree
 simtime=$((24000*$ntraj)) 	# total simulated time [s]
 bintime=300 			# size of time bins [s]
 
