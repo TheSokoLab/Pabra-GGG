@@ -1,0 +1,82 @@
+#-----------------------------------------------------------
+# Brief : Job script to start a single process on zx83 or stravinsky
+# Author: Tomek
+# Date  : 2012-04
+#-----------------------------------------------------------
+
+#-----------------------------------------------------------
+# OpenPBS options (start with #PBS)
+#
+# -S: shell to be used for your scripts
+# -l: provide extra options/resources
+#     notes=x:ppn=y
+#       allocate x nodes with y processors each
+#     walltime=hh:mm:ss
+#       allocate cpu time
+# -N: job name
+#
+#-----------------------------------------------------------
+# 
+#PBS -S /bin/bash
+#PBS -l nodes=1:ppn=1,walltime=240:00:00
+#PBS -N _REPLjobname
+
+# specify job directory
+JOB_DIR="_REPLjobdir"
+
+# specify program with path and parameters
+JOB_CMD="_REPLjobcmd"
+
+# specify output and target directory,
+# which can be different!
+IN_DIR="_REPLinputdir"
+OUT_DIR="_REPLoutputdir"
+TGT_DIR="_REPLtargetdir"
+
+# no of seconds to wait between major file system operations
+siesta=5
+
+# define output log file
+OUTLOG="run.log"
+
+# print some log info
+echo "------------------------------------------------------"
+echo "Time: $(date)"
+echo "Host: $(hostname)"
+echo "CDir: $(pwd)"
+echo "DDir: ${JOB_DIR}"
+echo "Cmd:  ${JOB_CMD}"
+echo "In:   ${IN_DIR}"
+echo "Out:  ${OUT_DIR}"
+echo "Tgt:  ${TGT_DIR}"
+echo "------------------------------------------------------"
+
+# create output directory if not existant
+echo "Creating directory ${OUT_DIR}"
+mkdirhier ${OUT_DIR}
+sleep $siesta
+
+echo "Copying input files"
+cp -v ${IN_DIR}/* ${OUT_DIR}
+
+# enter job directory
+pushd ${JOB_DIR}
+
+# run job command with parameters and redirect output
+export $PYTHONPATH
+${JOB_CMD}
+
+# return to previous directory
+popd
+
+if [ "$OUT_DIR" != "$TGT_DIR" ]; then
+	sleep $siesta
+	mv -v ${OUT_DIR}/* ${TGT_DIR}
+	rmdir ${OUT_DIR}
+fi
+
+# print some log info
+echo "------------------------------------------------------"
+echo "Time: $(date)"
+echo "------------------------------------------------------"
+echo "Finished."

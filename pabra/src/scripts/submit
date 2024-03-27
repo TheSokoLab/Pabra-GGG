@@ -1,0 +1,78 @@
+#!/bin/bash
+
+##### Choose parameters
+#parlist="9.4.10.11 9.4.10.12 9.4.10.14 9.4.10.16 9.4.10.18 9.4.10.20   10.4.10.11 10.4.10.12 10.4.10.14 10.4.10.16 10.4.10.18 10.4.10.20"
+#parlist="10.4.10.11 10.4.10.12 10.4.10.13 10.4.10.14 10.4.10.16 10.4.10.18 10.4.10.20"
+#parlist="10.4.10.15 10.4.10.17 10.4.10.19"
+parlist="10.4.10.11 10.4.10.12 10.4.10.13 10.4.10.14 10.4.10.15 10.4.10.16 10.4.10.17 10.4.10.18 10.4.10.19 10.4.10.20"
+#parlist="9.4.10.11 9.4.10.12 9.4.10.13 9.4.10.14 9.4.10.15 9.4.10.16 9.4.10.17 9.4.10.18 9.4.10.19 9.4.10.20"
+#parlist="10.4.10.12 10.4.10.16 10.4.10.20"
+#parlist="9.4.10.13 10.4.10.13"
+#parlist="10.4.10.12"
+simtime=7500000
+ntraj=500
+bintime=3000
+
+##### Set comment string and directories
+comment="${simtime}s_CN30_unpinned_1e-4_pf1.0_sizlim1_500traj"
+jobsetname=FFS_${comment}
+
+date="$(date +"%m-%d_%H-%M-%S" )"
+datedir="Tomek_$date"
+echo "datedir = $datedir ..."
+
+inputbase="/home/thomas/FFS/input-FFS-CN30_unpinned/"
+outputbase="/state/partition1/"
+#outputbase="/home/thomas/FFS/"
+targetbase="/home/thomas/FFS/${datedir}/"   # the directory to which everything is moved finally
+GGG_src_dir="/home/thomas/FFS/GGG_src/"
+
+##### Chosse scripts to start
+#scripts="tpropext_tomek_1coord.py tpropext_tomek_2coords.py tpropext_tomek_2coords_orth.py"
+#scripts="tpropext_tomek_2coords.py tpropext_tomek_2coords_orth.py"
+scripts="tpropext_tomek_1coord.py"
+
+##### Compile source code
+echo "Compiling ..."
+pushd $GGG_src_dir
+make cluster
+popd
+
+##### Start all chosen scripts with all parameters chosen
+for script in $scripts; do
+for pars in $parlist; do
+
+	echo "Defining directories ..."
+	randomint=$(echo $RANDOM)
+	randomdir="${datedir}_sim${randomint}"
+	jobdir='/home/thomas/FFS/pabra/src/testruns/'
+	inputdir="${inputbase}/input.$pars/"
+	outputdir="${outputbase}/${randomdir}/"
+	targetdir="${targetbase}/sim_${comment}_${pars}/"
+	echo "  jobdir    = $jobdir"
+	echo "  inputdir  = $inputdir"
+	echo "  outputdir = $outputdir"
+	echo "  targetdir = $targetdir"
+
+	jobcmd="./start27.sh $script $inputdir $outputdir $pars $simtime $ntraj $bintime $comment"
+	jobname="${jobsetname}_${pars}"
+
+	echo "Preparing input data directories ..."
+	cp -v $GGG_src_dir/gillespie.X64 ${inputdir}/gillespie.X
+
+	echo "Creating target directory ..."
+	mkdirhier ${targetdir}
+
+	echo "Constructing script for job $jobname ..."
+	echo "jobcmd = $jobcmd"
+	echo
+
+	replace _REPLjobdir "$jobdir" _REPLjobcmd "$jobcmd" _REPLjobname "$jobname" _REPLinputdir "$inputdir" _REPLoutputdir "$outputdir" _REPLtargetdir "$targetdir" < in.qsub > submit.qsub
+
+	echo "Submitting ..."
+	qsub -o ${hostname}:${targetbase} -e ${hostname}:${targetbase} submit.qsub
+	rm submit.qsub
+
+done
+done
+

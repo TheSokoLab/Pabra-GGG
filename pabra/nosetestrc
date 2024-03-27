@@ -1,0 +1,9 @@
+[nosetests]
+where=./src/unittests
+verbosity=1
+with-doctest=1
+with-coverage=0
+cover-html=1
+cover-package=pabra
+nocapture=1
+

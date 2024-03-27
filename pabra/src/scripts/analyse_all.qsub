@@ -1,0 +1,38 @@
+#PBS -S /bin/bash
+#PBS -l nodes=1:ppn=1,walltime=240:00:00
+#PBS -N FFS_analysis
+
+basedir="/home/thomas/FFS"
+dirlist="12-DATA_5h_larger_sweep/DATA_FFS_7500000_CN15_1e-4_pf0.25"
+#dirlist="12b-DATA_5h_brute_force/DATA_FFS_7500000_CN15_1e-4_pf1.0_sizlim1_500traj_fd00"
+#dirlist="13-DATA_unpinned/DATA_FFS_7500000_CN15_unpinned_1e-4_pf0.25_sizlim32_500traj"
+#dirlist="14-DATA_5h_longer_RT/DATA_FFS_15000000_CN15_1e-4_pf0.25_sizlim32_1000traj"
+#dirlist="14-DATA_5h_longer_RT/DATA_FFS_30000000_CN15_1e-4_pf0.25_sizlim32_2000traj"
+tag="test_1coord_"
+
+# Write some info
+echo BASEDIR = $basedir
+echo DIRLIST = $dirlist
+echo TAG = $tag
+
+pushd $basedir
+
+# Get most recent analysis script
+cp -v pabra/src/scripts/dump_tree.py .
+
+# Go through the directories and do
+# the analysis
+for d in $dirlist*; do
+
+	echo Analysing $d with tag $tag ...
+
+	cp -v dump* $d
+	pushd $d
+
+	./dump_all.sh $tag*
+
+	popd
+
+done
+
+popd
