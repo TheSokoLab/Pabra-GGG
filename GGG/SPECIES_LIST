@@ -1,0 +1,81 @@
+
+# 3 binding sites
+
+0   Hb
+1   Hb2
+2   HB
+3   HB-Kr2
+4   HB-Kni2
+5   HB-Gt2
+6   HB-Kr2-Kni2
+7   HB-Kr2-Gt2
+8   HB-Kni2-Gt2
+9   HB-Kr2-Kni2-Gt2
+
+10  Kr
+11  Kr2
+12  KR
+13  KR-Hb2
+14  KR-Kni2
+15  KR-Gt2
+16  KR-Hb2-Kni2
+17  KR-Hb2-Gt2
+18  KR-Kni2-Gt2
+19  KR-Hb2-Kni2-Gt2
+
+20  Kni
+21  Kni2
+22  KNI
+23  KNI-Hb2
+24  KNI-Kr2
+25  KNI-Gt2
+26  KNI-Hb2-Kr2
+27  KNI-Hb2-Gt2
+28  KNI-Kr2-Gt2
+29  KNI-Hb2-Kr2-Gt2
+
+30  Gt
+31  Gt2
+32  GT
+33  GT-Hb2
+34  GT-Kr2
+35  GT-Kni2
+36  GT-Hb2-Kr2
+37  GT-Hb2-Kni2
+38  GT-Kr2-Kni2
+39  GT-Hb2-Kr2-Kni2
+
+40  HB_pinned
+
+
+# 1 binding site = special case
+
+0   Hb
+1   Hb2
+2   HB
+3   HB-Kr2
+4   HB-Kni2
+5   HB-Gt2
+
+10  Kr
+11  Kr2
+12  KR
+13  KR-Hb2
+14  KR-Kni2
+15  KR-Gt2
+
+20  Kni
+21  Kni2
+22  KNI
+23  KNI-Hb2
+24  KNI-Kr2
+25  KNI-Gt2
+
+30  Gt
+31  Gt2
+32  GT
+33  GT-Hb2
+34  GT-Kr2
+35  GT-Kni2
+
+36  HB_pinned
