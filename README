@@ -1,0 +1,107 @@
+******************************************************
+***                                                ***
+***                 Pabra + GGG                    ***
+***                                                ***
+***  Scientific software for enhanced sampling of  *** 
+***  event-driven spatial-stochastic simulations   ***
+***  via Non-Stationary Forward Flux Sampling      ***
+***                                                ***
+***  (c) 2012-2024 by T.R. Sokolowski & N. Becker  ***
+***                                                ***
+******************************************************
+
+This scientific software was developed as part of a 
+research project that started at FOM Institute AMOLF
+in Amsterdam and later continued at IST Austria and
+the Frankfurt Institute for Advanced Studies.
+
+By wrapping the generic "Pabra" toolkit that imple-
+ments Non-Stationary Forward Flux Sampling (NS-FFS)
+around the "Gap Gene Gillespie" (GGG) software for
+spatial-stochastic simulation of mutually regulating
+gene expression domains, it allows for enhanced
+sampling of low-probability events in biochemical
+systems driving embryonic development.
+
+Pabra is implemented in Python, while GGG is written
+in C++. This required to opt for an implementation
+in which Pabra runs GGG for short time intervals
+(typically 60s) and then collects the GGG output
+for computing the relevant progress/reaction coor-
+dinates. Pabra then assesses whether these have
+crossed predefinable interfaces in reaction coordinate
+space and "branches" the trajectories with different
+seeds in order to enhance the probability of reaching
+the subsequent interfaces. The branched trajectories
+are reweighted according to the NS-FFS scheme in
+order to obtain their actual unbiased probabilities.
+
+While GGG in principle allows simulating arbitrary
+reaction networks and initial spatial conditions in
+cylindrical geometries, this package implements a
+prototypical system in which 4 gene expression domains
+are arranged in 5 stripes along the cylinder. In this 
+geometry, which is inspired by the gap gene system in 
+the early fruit fly (Drosophila melanogaster) embryo,
+the next-nearest neighbor gene expression domains 
+mutually repress each other strongly, while adjacent 
+expression domains mutually repress with a weaker 
+repression strength.
+
+The repression strength can be systematically varied
+via the preimplemented bash start script (START.sh).
+In the script, also the parameters relevant to Pabra
+can be tuned, such as the total length of the time
+interval (histogram) simulated, number of bins, and
+overall simulated time of all trajectories accumulated.
+It is advisable to work with values here that are
+multiples of half-hours. More information can be
+found in the comments inside the start script.
+
+Files with relaxed initial conditions for the five
+stripe systems with pinned and unpinned boundary
+conditions are already provided with the package.
+These initial conditions were generated using GGG,
+starting from perfectly rectangular equally spaced
+profiles.
+
+After the simulations terminate, the output directory
+still contains the temporal subdirectories generated
+when new schools were branched off. These should be
+archived or discarded as needed.
+
+The package also contains two custom analysis scripts
+which are designed to analyse and visualize the
+temporal and phase-space behavior of the reaction
+progress coordinates, and for generating histograms
+of the sampled branched progress trees.
+
+See files analyse_tree.sh and dump_tree.py for
+more information.
+
+Pabra relies on using HDF5 tree structures for
+storing the branched reaction trajectories and
+thus requires the h5tree package. If not already
+available on the specific system used, the package
+can be conveniently installed via pip, using the
+command 'pip install h5tree'.
+
+----------------------
+
+Relevant publications:
+
+* [Majka2023] (Pabra + GGG)
+  M Majka, NB Becker, PR Wolde, M Zagorski, TR Sokolowski, 
+  "Stable developmental patterns of gene expression without 
+   morphogen gradients", arXiv:2306.00537 (2023)
+
+* [Becker2012] (Pabra / NS-FFS)
+  NB Becker, RJ Allen, PR ten Wolde,
+  "Non-stationary forward flux sampling",
+  J. Chem. Phys. 136, 174118 (2012)
+
+* [Sokolowski2013] (GGG)
+  TR Sokolowski, T Erdmann, PR ten Wolde,
+  "Mutual repression enhances the steepness and precision 
+   of gene expression boundaries",
+  PLoS Comput Biol 8 (8), e1002654 (2012)
